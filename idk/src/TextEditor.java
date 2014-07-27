@@ -99,4 +99,5 @@ public class TextEditor {
 		menubar.setVisible(true);
                 
 	}//end main method
+        
 }//end class TextEditor
