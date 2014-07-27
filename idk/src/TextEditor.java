@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -32,6 +31,7 @@ public class TextEditor {
 		frame.setLocation(120, 80);
 		frame.add(type);
 		frame.setJMenuBar(menubar);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//set up text area
 		type.setSelectedTextColor(Color.GREEN);
