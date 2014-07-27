@@ -42,7 +42,7 @@ public class TextEditor {
 		type.setSelectionColor(Color.BLUE);
 	
 		//read and set font
-		InputStream is = Box.class.getResourceAsStream("courbd.ttf");
+		InputStream is = TextEditor.class.getResourceAsStream("courbd.ttf");
 		Font font = Font.createFont(Font.TRUETYPE_FONT, is);
 		Font sizedFont = font.deriveFont(16f);
 		type.setFont(sizedFont);
