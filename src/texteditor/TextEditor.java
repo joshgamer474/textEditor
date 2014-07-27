@@ -2,8 +2,10 @@
  */
 package texteditor;
 
+import javax.swing.JFrame;
 
-public class TextEditor {//start class TextEditor
+
+public class TextEditor extends JFrame{//start class TextEditor
 
 
     public static void main(String[] args) {
