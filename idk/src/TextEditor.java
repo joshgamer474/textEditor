@@ -41,7 +41,8 @@ public class TextEditor {
 		type.setCaretColor(Color.white);
 		type.setTabSize(5);
 		type.setSelectionColor(Color.BLUE);
-	
+		type.setWrapStyleWord(true);
+                
 		//read and set font
 		InputStream is = TextEditor.class.getResourceAsStream("courbd.ttf");
 		Font font = Font.createFont(Font.TRUETYPE_FONT, is);
@@ -102,4 +103,3 @@ public class TextEditor {
 	}//end main method
         
 }//end class TextEditor
-
