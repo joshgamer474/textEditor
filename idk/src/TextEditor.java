@@ -15,7 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 
 
-public class Box {
+public class TextEditor {
 	
 	public static final int WIDTH = 16;
 	public static final int HEIGHT = 9;
