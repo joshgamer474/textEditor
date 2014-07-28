@@ -40,8 +40,9 @@ public class TextEditor {
 		type.setCaretColor(Color.white);
 		type.setTabSize(5);
 		type.setSelectionColor(Color.BLUE);
-                
-                type.setWrapStyleWord(true);
+        
+		type.setLineWrap(true);
+        type.setWrapStyleWord(true);
                 
                 
 		//read and set font
