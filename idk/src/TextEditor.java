@@ -32,7 +32,6 @@ public class TextEditor {
 		frame.setLocation(120, 80);
 		frame.add(type);
 		frame.setJMenuBar(menubar);
-		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//set up text area
