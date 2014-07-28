@@ -33,6 +33,8 @@ public class TextEditor {
 		frame.add(type);
 		frame.setJMenuBar(menubar);
 		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		//set up text area
 		type.setSelectedTextColor(Color.GREEN);
 		type.setBackground(Color.BLACK);
