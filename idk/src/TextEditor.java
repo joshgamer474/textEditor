@@ -41,8 +41,8 @@ public class TextEditor {
 		type.setTabSize(5);
 		type.setSelectionColor(Color.BLUE);
         
-		type.setLineWrap(true);
-        type.setWrapStyleWord(true);
+		type.setLineWrap(true);	//allows text to wrap 
+        type.setWrapStyleWord(true);	//wraps whole words instead of just letters
                 
                 
 		//read and set font
