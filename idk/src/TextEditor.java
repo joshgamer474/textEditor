@@ -2,19 +2,28 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 
 public class TextEditor {
@@ -84,6 +93,10 @@ public class TextEditor {
 		Font sizedFont = font.deriveFont(16f);
 		type.setFont(sizedFont);
 		
+		//read and set about image
+		InputStream ist = TextEditor.class.getResourceAsStream("questionmark.png");
+		final BufferedImage img = ImageIO.read(ist);
+	
 		//flashes colors when typing
 		type.addKeyListener(new KeyListener() {
 
@@ -146,7 +159,39 @@ public class TextEditor {
 			}
 		});
 		
-		
+		//show info window on about click
+		about.addMenuListener(new MenuListener(){
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void menuSelected(MenuEvent e) {
+				JDialog info = new JDialog(frame, "About");
+				info.setLocation((int) frame.getLocation().getX(),(int) frame.getLocation().getY());
+				info.setVisible(true);
+				info.setIconImage(img);
+				info.setSize(200, 100);
+				info.setResizable(false);
+				
+				//change about window text
+				JTextPane inftext = new JTextPane();
+				inftext.setText("Created by radbrad and JoshC");
+				inftext.setSize(info.getSize());
+				inftext.setEditable(false);
+				inftext.setBackground(Color.magenta);
+				info.add(inftext);
+			}
+			
+		});
 		
 		
 		
