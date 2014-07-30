@@ -1,7 +1,9 @@
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -22,10 +24,41 @@ public class TextEditor {
 	public static final int SCALE = 50;
 	public static JFrame frame = new JFrame("TextEdit 2.0");
 	public static JTextArea type = new JTextArea();
+	
+	//add menu bar at top
 	public static JMenuBar menubar = new JMenuBar();
-	public static JMenu opt = new JMenu("Options");
+	
+	//add various things to menu bar	
+	public static JMenu file = new JMenu("File");
+	public static JMenu edit = new JMenu("Edit");
+	public static JMenu format = new JMenu("Format");
+	public static JMenu view = new JMenu("View");
+	public static JMenu about = new JMenu("About");
+	
+	//create sub-options for JMenubar, for File
+	public static JMenuItem newFile = new JMenuItem("New       ");	//note: only the first sub-option you're adding needs the extra spaces after its name
+	public static JMenuItem openFile = new JMenuItem("Open");
+	public static JMenuItem saveFile = new JMenuItem("Save");
+	public static JMenuItem exitFile = new JMenuItem("Exit");
+	
+	//create sub-options for JMenubar, for Edit
+	
+	
+	//create sub-options for JMenubar, for Format
+	public static JMenuItem wordWrap = new JMenuItem("Word Wrap       ");
+	public static JMenuItem changeFont = new JMenuItem("Font...");
+	
 
-	public static void main(String[] args) throws FontFormatException, IOException{
+	//create sub-options for JMenubar, for View
+	
+	
+	//create sub-options for JMenubar, for About
+	
+	
+	
+	
+
+	public static void main(String[] args) throws FontFormatException, IOException{//start main method
 		//set up jframe
 		frame.setResizable(true);
 		frame.setSize(WIDTH * SCALE, HEIGHT * SCALE);
@@ -42,8 +75,7 @@ public class TextEditor {
 		type.setTabSize(5);
 		type.setSelectionColor(Color.BLUE);
         
-		type.setLineWrap(true);
-        type.setWrapStyleWord(true);
+        type.setWrapStyleWord(true);	//wraps whole words instead of just letters
                 
                 
 		//read and set font
@@ -92,17 +124,97 @@ public class TextEditor {
 			}
 			
 		});
+	
 		
-		//set up option menus
-		JMenuItem file = new JMenuItem("Save     ");
-		menubar.add(opt);
-		opt.add(file);
+		/*
+		 * Add actions to sub-options in Jmenubar
+		 */
+		
+		//give wordWrap actions, make it act like a toggle button
+		wordWrap.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				if(wordWrap.isSelected() == false){
+					wordWrap.setSelected(true);
+					wordWrap.setText("Word Wrap       \u2713");	//changes text to add checkmark after 'Word Wrap' in menu
+					type.setLineWrap(true);
+				}else{
+					wordWrap.setSelected(false);
+					wordWrap.setText("Word Wrap       ");
+					type.setLineWrap(false);
+				}
+			}
+		});
+		
+		
+		
+		
+		
+		/*
+		 * Add options to JMenu Bar
+		 */
+		
+		//add options to JMenuBar
+		menubar.add(file);
+		menubar.add(edit);
+		menubar.add(format);
+		menubar.add(view);
+		menubar.add(about);
+		
+		
+		/*
+		 * Add sub-options to JMenu Bar
+		 */
 
+		//add sub-options to JMenuBar File
+		file.add(newFile);
+		file.add(openFile);
+		file.add(saveFile);
+		file.add(exitFile);
+		
+
+		//add sub-options to JMenuBar Edit
+		
+		
+		//add sub-options to JMenuBar Format
+
+		format.add(wordWrap);
+		format.add(changeFont);
+		
+		
+		//add sub-options to JMenuBar View
+		
+		
+		//add sub-options to JMenuBar About
+
+		
+		
+		/*
+		 * Enable swing elements
+		 */
+		
 		//enable swing elements
 		frame.setVisible(true);
 		type.setVisible(true);
 		menubar.setVisible(true);
                 
 	}//end main method
+	
+	
+	
+	
+	//todo - add methods to sub-option buttons
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
         
 }//end class TextEditor
+
