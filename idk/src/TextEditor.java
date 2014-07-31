@@ -8,8 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -20,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.event.MenuEvent;
@@ -152,8 +155,7 @@ public class TextEditor {
 				if(wordWrap.isSelected() == false){
 					wordWrap.setSelected(true);
 					wordWrap.setText("Word Wrap       \u2713"); //\u2713 is a checkmark
-					type.setLineWrap(true);
-					
+					type.setLineWrap(true);			
 				}else{
 					wordWrap.setSelected(false);
 					wordWrap.setText("Word Wrap        ");	//changes text to delete checkmark after 'Word Wrap' in menu
@@ -196,7 +198,40 @@ public class TextEditor {
 			
 		});
 		
+		//close window on exit click
+		exitFile.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();			
+			}
+			
+		});
 		
+		//save file
+		saveFile.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane rly = new JOptionPane("Saving. . .");
+				rly.setLocation((int) frame.getLocation().getX(), (int) frame.getLocation().getY());
+				rly.setSize(200, 100);
+				rly.setBackground(Color.magenta);
+				rly.setVisible(true);
+				
+				String filename = JOptionPane.showInputDialog("Enter file name: ");
+				try{
+					FileWriter fw = new FileWriter(filename + ".txt");
+					PrintWriter pw = new PrintWriter(fw);
+					pw.println(type.getText());
+					pw.close();
+				}
+				catch(IOException io){
+					io.printStackTrace();
+				}
+			}
+			
+		});
 		
 		/*
 		 * Add options to JMenu Bar
