@@ -54,7 +54,7 @@ public class TextEditor {
 	
 	
 	//create sub-options for JMenubar, for Format
-	public static JMenuItem wordWrap = new JMenuItem("Word Wrap       ");
+	public static JMenuItem wordWrap = new JMenuItem("Word Wrap       \u2713");
 	public static JMenuItem changeFont = new JMenuItem("Font...");
 	
 
@@ -83,7 +83,9 @@ public class TextEditor {
 		type.setCaretColor(Color.white);
 		type.setTabSize(5);
 		type.setSelectionColor(Color.BLUE);
-        
+		
+        wordWrap.setSelected(true);
+		type.setLineWrap(true);
         type.setWrapStyleWord(true);	//wraps whole words instead of just letters
                 
                 
@@ -149,11 +151,12 @@ public class TextEditor {
 			public void actionPerformed(ActionEvent e){
 				if(wordWrap.isSelected() == false){
 					wordWrap.setSelected(true);
-					wordWrap.setText("Word Wrap       \u2713");	//changes text to add checkmark after 'Word Wrap' in menu
+					wordWrap.setText("Word Wrap       \u2713"); //\u2713 is a checkmark
 					type.setLineWrap(true);
+					
 				}else{
 					wordWrap.setSelected(false);
-					wordWrap.setText("Word Wrap       ");
+					wordWrap.setText("Word Wrap        ");	//changes text to delete checkmark after 'Word Wrap' in menu
 					type.setLineWrap(false);
 				}
 			}
@@ -184,7 +187,7 @@ public class TextEditor {
 				
 				//change about window text
 				JTextPane inftext = new JTextPane();
-				inftext.setText("Created by radbrad and JoshC");
+				inftext.setText("Created by radbrad and JoshC \n\n     © 2014");
 				inftext.setSize(info.getSize());
 				inftext.setEditable(false);
 				inftext.setBackground(Color.magenta);
