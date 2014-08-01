@@ -1,19 +1,32 @@
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 
 public class TextEditor {
@@ -44,7 +57,7 @@ public class TextEditor {
 	
 	
 	//create sub-options for JMenubar, for Format
-	public static JMenuItem wordWrap = new JMenuItem("Word Wrap       ");
+	public static JMenuItem wordWrap = new JMenuItem("Word Wrap       \u2713");
 	public static JMenuItem changeFont = new JMenuItem("Font...");
 	
 
@@ -73,7 +86,9 @@ public class TextEditor {
 		type.setCaretColor(Color.white);
 		type.setTabSize(5);
 		type.setSelectionColor(Color.BLUE);
-        
+		
+        wordWrap.setSelected(true);
+		type.setLineWrap(true);
         type.setWrapStyleWord(true);	//wraps whole words instead of just letters
                 
                 
@@ -83,6 +98,10 @@ public class TextEditor {
 		Font sizedFont = font.deriveFont(16f);
 		type.setFont(sizedFont);
 		
+		//read and set about image
+		InputStream ist = TextEditor.class.getResourceAsStream("questionmark.png");
+		final BufferedImage img = ImageIO.read(ist);
+	
 		//flashes colors when typing
 		type.addKeyListener(new KeyListener() {
 
@@ -135,19 +154,84 @@ public class TextEditor {
 			public void actionPerformed(ActionEvent e){
 				if(wordWrap.isSelected() == false){
 					wordWrap.setSelected(true);
-					wordWrap.setText("Word Wrap       \u2713");	//changes text to add checkmark after 'Word Wrap' in menu
-					type.setLineWrap(true);
+					wordWrap.setText("Word Wrap       \u2713"); //\u2713 is a checkmark
+					type.setLineWrap(true);			
 				}else{
 					wordWrap.setSelected(false);
-					wordWrap.setText("Word Wrap       ");
+					wordWrap.setText("Word Wrap        ");	//changes text to delete checkmark after 'Word Wrap' in menu
 					type.setLineWrap(false);
 				}
 			}
 		});
 		
+		//show info window on about click
+		about.addMenuListener(new MenuListener(){
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void menuSelected(MenuEvent e) {
+				JDialog info = new JDialog(frame, "About");
+				info.setLocation((int) frame.getLocation().getX(),(int) frame.getLocation().getY());
+				info.setVisible(true);
+				info.setIconImage(img);
+				info.setSize(200, 100);
+				info.setResizable(false);
+				
+				//change about window text
+				JTextPane inftext = new JTextPane();
+				inftext.setText("Created by radbrad and JoshC \n\n     © 2014");
+				inftext.setSize(info.getSize());
+				inftext.setEditable(false);
+				inftext.setBackground(Color.magenta);
+				info.add(inftext);
+			}
+			
+		});
 		
+		//close window on exit click
+		exitFile.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();			
+			}
+			
+		});
 		
-		
+		//save file
+		saveFile.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane rly = new JOptionPane("Saving. . .");
+				rly.setLocation((int) frame.getLocation().getX(), (int) frame.getLocation().getY());
+				rly.setSize(200, 100);
+				rly.setBackground(Color.magenta);
+				rly.setVisible(true);
+				
+				String filename = JOptionPane.showInputDialog("Enter file name: ");
+				try{
+					FileWriter fw = new FileWriter(filename + ".txt");
+					PrintWriter pw = new PrintWriter(fw);
+					pw.println(type.getText());
+					pw.close();
+				}
+				catch(IOException io){
+					io.printStackTrace();
+				}
+			}
+			
+		});
 		
 		/*
 		 * Add options to JMenu Bar
@@ -216,3 +300,4 @@ public class TextEditor {
 	
         
 }//end class TextEditor
+
