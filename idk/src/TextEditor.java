@@ -145,6 +145,27 @@ public class TextEditor {
 	
 		
 		/*
+		 * Add mnemonics to sub-options in Jmenubar
+		 */
+		
+		//for File
+		newFile.setMnemonic(KeyEvent.VK_N);
+		openFile.setMnemonic(KeyEvent.VK_O);
+		saveFile.setMnemonic(KeyEvent.VK_S);
+		exitFile.setMnemonic(KeyEvent.VK_X);
+		
+		//for Edit
+		
+		
+		//for Format
+		wordWrap.setMnemonic(KeyEvent.VK_W);
+		changeFont.setMnemonic(KeyEvent.VK_F);
+		
+		//for View
+		
+		
+		
+		/*
 		 * Add actions to sub-options in Jmenubar
 		 */
 		
@@ -232,6 +253,8 @@ public class TextEditor {
 			}
 			
 		});
+		
+		
 		
 		/*
 		 * Add options to JMenu Bar
