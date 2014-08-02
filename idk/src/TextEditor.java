@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +21,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -70,7 +74,7 @@ public class TextEditor {
 	
 	
 
-	public static void main(String[] args) throws FontFormatException, IOException{//start main method
+	public static void main(String[] args) throws FontFormatException, IOException, Exception{//start main method
 		//set up jframe
 		frame.setResizable(true);
 		frame.setSize(WIDTH * SCALE, HEIGHT * SCALE);
@@ -229,18 +233,101 @@ public class TextEditor {
 			
 		});
 		
+		
+		//open file
+		openFile.addActionListener(new ActionListener(){
+			
+			@Override
+			public void actionPerformed(ActionEvent e){
+				
+				//create String filename to open file name
+				String filename = new String();
+				
+				//create variables to read in file
+				FileReader fileReader;
+				BufferedReader bufferedReader;
+				
+				//open file explorer of where to open file
+				JFileChooser chooser = new JFileChooser();
+				int chooserStatus = chooser.showOpenDialog(openFile);
+				
+				
+				if (chooserStatus == JFileChooser.APPROVE_OPTION){
+					
+					//get a reference to the selected file
+					File selectedFile = chooser.getSelectedFile();
+					
+					//get the path of the selected file
+					filename = selectedFile.getPath();
+				}
+				
+				
+				//open the file into textEditor
+				try{
+					
+					//open the file
+					fileReader = new FileReader(filename);
+					bufferedReader = new BufferedReader(fileReader);
+					
+					//read in file
+					String lineIn = "";
+					String editorString = "";
+					lineIn = bufferedReader.readLine();
+					
+					//loop to read in each line
+					while(lineIn != null){
+						//group all current lines into editorString
+						editorString = editorString + lineIn + "\n";
+						
+						//goto next line
+						lineIn = bufferedReader.readLine();
+					}
+					
+					//set textEditor text to editorString's text
+					type.setText(editorString);
+					
+					//close buffered reader
+					bufferedReader.close();
+					
+					//close filereader
+					fileReader.close();
+					
+					
+				}catch(Exception e1){
+					
+					//idk do something
+				}
+				
+			}
+			
+			
+		});
+		
+		
+		
 		//save file
 		saveFile.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane rly = new JOptionPane("Saving. . .");
-				rly.setLocation((int) frame.getLocation().getX(), (int) frame.getLocation().getY());
-				rly.setSize(200, 100);
-				rly.setBackground(Color.magenta);
-				rly.setVisible(true);
 				
-				String filename = JOptionPane.showInputDialog("Enter file name: ");
+				//create String filename to save file name's name
+				String filename = new String();
+				
+				//open file explorer of where to save
+				JFileChooser chooser = new JFileChooser();
+				int chooserStatus = chooser.showSaveDialog(saveFile);
+				
+				if (chooserStatus == JFileChooser.APPROVE_OPTION)
+	            {
+	               //get a reference to the selected file
+	               File selectedFile = chooser.getSelectedFile();
+
+	               //get the path of the selected file
+	               filename = selectedFile.getPath();
+	            }
+
+				//save the file
 				try{
 					FileWriter fw = new FileWriter(filename + ".txt");
 					PrintWriter pw = new PrintWriter(fw);
